@@ -40,4 +40,5 @@ public class Room {
     public void setTreasure(int treasure) {
         this.treasure = treasure;
     }
+
 }

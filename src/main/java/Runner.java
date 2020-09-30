@@ -70,25 +70,26 @@ public class Runner {
                     System.out.println(player2.getName() + " HP: " + player2.getHp());
                     System.out.println(room.getMonster().getType() + " HP: " + room.getMonster().getHp() );
                     System.out.println("- - - - ");
-
+                    if (player1.getHp()>0){
                     System.out.println(player1.getName() + " to move: ");
                     System.out.println("1. Attack for " +  player1.getWeapon().getBaseDamage()+ " damage");
                     System.out.println("2. Pray - Increases damage and small heal");
                     String inputPlayer1 = scanner.next();
+                        if (parseInt(inputPlayer1) == 1){
+                            player1.attack(room.getMonster());
+                            System.out.println(room.getMonster().getType()+ " was hit for "+ player1.getWeapon().getBaseDamage());
+                        }
+                        if (parseInt(inputPlayer1) == 2){
+                            player1.pray();
 
+                        }
+
+                    }
+                    if (player2.getHp()>0){
                     System.out.println(player2.getName() + " to move: ");
                     System.out.println("1. Cast Fireball for " + player2.getSpellBook().get(0).getBaseDamage());
                     System.out.println("2. Cast ice Shard for " + player2.getSpellBook().get(1).getBaseDamage());
                     String inputPlayer2 = scanner.next();
-
-                    if (parseInt(inputPlayer1) == 1){
-                        player1.attack(room.getMonster());
-                        System.out.println(room.getMonster().getType()+ " was hit for "+ player1.getWeapon().getBaseDamage());
-                    }
-                    if (parseInt(inputPlayer1) == 2){
-                        player1.pray();
-
-                    }
 
                     if (parseInt(inputPlayer2) == 1){
                         player2.selectSpell(0);
@@ -99,13 +100,38 @@ public class Runner {
                         player2.selectSpell(1);
                         player2.castSpell(room.getMonster());
                         System.out.println(room.getMonster().getType()+ " was hit for "+ player2.getSelectedSpell().getBaseDamage());
+
+                    }
                     }
 
                     System.out.println(room.getMonster().getType() + "'s turn to move, ");
                     room.getMonster().attack(player1);
-                    System.out.println(room.getMonster().getType() + " attacked" + player1.getName() + "for " +room.getMonster().getCurrentDamage() + " damage");
+
+                    System.out.println(room.getMonster().getType() + " attacked " + player1.getName() + " for " +room.getMonster().getCurrentDamage() + " damage");
+                    if (!player1.isAlive()){
+                        System.out.println(player1.getName() + " has been killed");
+                    }
+
                     room.getMonster().attack(player2);
-                    System.out.println(room.getMonster().getType() + " attacked" + player2.getName() + "for " +room.getMonster().getCurrentDamage() + " damage");
+                    System.out.println(room.getMonster().getType() + " attacked " + player2.getName() + " for " +room.getMonster().getCurrentDamage() + " damage");
+                    if (!player2.isAlive()){
+                        System.out.println(player2.getName() + " has been killed");
+                    }
+
+                    if (!player1.isAlive() && ! player2.isAlive()) {
+                        endgame = " the monster protected the treasure";
+                        gameState = false;
+                    }
+
+                    if (!room.getMonster().isAlive()) {
+                        endgame = " The brave adventurers defeated " + room.getMonster().getType()
+                                + " and found the treasure of "+ room.getTreasure() + " shmeckles! ";
+                        gameState = false;
+                    }
+
+
+
+
 
                 }
 
