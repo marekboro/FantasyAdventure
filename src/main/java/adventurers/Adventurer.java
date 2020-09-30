@@ -1,6 +1,8 @@
 package adventurers;
 
-public abstract class Adventurer {
+import behaviours.ITakeDamage;
+
+public abstract class Adventurer implements ITakeDamage {
     private int hp;
     private String name;
 
@@ -21,7 +23,7 @@ public abstract class Adventurer {
         this.hp += amount;
     }
 
-    public void takeDamage(int amount) {
+    public void takeDmg(int amount) {
         this.hp -= amount;
     }
     public boolean isAlive(){

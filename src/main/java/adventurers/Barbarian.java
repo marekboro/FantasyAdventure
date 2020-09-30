@@ -4,7 +4,7 @@ import behaviours.IAttack;
 import behaviours.ITakeDamage;
 import toolsandweapons.Weapon;
 
-public class Barbarian extends Adventurer implements IAttack, ITakeDamage {
+public class Barbarian extends Adventurer implements IAttack{
     private Weapon weapon;
 
     public Barbarian(int hp, String name) {
@@ -15,15 +15,10 @@ public class Barbarian extends Adventurer implements IAttack, ITakeDamage {
     public void takeDmg(int amount){
         setHp(getHp()-(amount));
     }
-    public void attack1(ITakeDamage target){
+    public void attack(ITakeDamage target){
 
     }
-    public void attack2(ITakeDamage target){
 
-    }
-    public void attack3(ITakeDamage target){
-
-    }
     public void changeWeapon(Weapon weapon){
         this.weapon = weapon;
 

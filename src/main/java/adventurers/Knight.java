@@ -4,7 +4,7 @@ import behaviours.IAttack;
 import behaviours.ITakeDamage;
 import toolsandweapons.Weapon;
 
-public class Knight extends Adventurer implements IAttack, ITakeDamage {
+public class Knight extends Adventurer implements IAttack{
     private Weapon weapon;
 
     public Knight(int hp, String name) {
@@ -16,15 +16,10 @@ public class Knight extends Adventurer implements IAttack, ITakeDamage {
 //        mitigated = tryBlock();               // WILL reduce dmg by 4 at random.
         setHp(getHp()-(amount-mitigated));
     }
-    public void attack1(ITakeDamage target){
-
+    public void attack(ITakeDamage target){
+        target.takeDmg(weapon.getBaseDamage());
     }
-    public void attack2(ITakeDamage target ){
 
-    }
-    public void attack3(ITakeDamage target){
-
-    }
     public int tryBlock(){
         int mitigated = 0;
         int random = (int)(Math.random()*10) +1;

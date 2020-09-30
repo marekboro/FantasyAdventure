@@ -6,7 +6,7 @@ import toolsandweapons.Weapon;
 
 import java.util.ArrayList;
 
-public class Dwarf extends Adventurer implements ITakeDamage, IAttack {
+public class Dwarf extends Adventurer implements IAttack {
     private Weapon weapon;
 
     public Dwarf(int hp, String name) {
@@ -19,15 +19,10 @@ public class Dwarf extends Adventurer implements ITakeDamage, IAttack {
 //        mitigated = tryBlock();               // WILL reduce dmg by 4 at random.
         setHp(getHp()-(amount-mitigated));
     }
-    public void attack1(ITakeDamage target){
+    public void attack(ITakeDamage target){
 
     }
-    public void attack2(ITakeDamage target ){
 
-    }
-    public void attack3(ITakeDamage target){
-
-    }
     public int tryBlock(){
         int mitigated = 0;
         int random = (int)(Math.random()*10) +1;
