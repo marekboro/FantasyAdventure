@@ -20,7 +20,7 @@ public class Runner {
         Generator generator = new Generator();
         ArrayList<Adventurer> party = new ArrayList<Adventurer>();
 
-
+        int totalTreasure = 0;
         Knight knight = new Knight(30, "Sir Squiggly");
         Wizard wizard = new Wizard(20, "Rincewind");
         Spell fireball = new Spell("Fireball", 10);
@@ -40,6 +40,7 @@ public class Runner {
 //        Room room = new Room(monster,treasure);
         Scanner scanner = new Scanner(System.in);
         boolean gameState = true;
+
         String endgame = "";
 
 
@@ -51,7 +52,7 @@ public class Runner {
         System.out.println(player1.getName() + " and " + player2.getName()
                 + " enters the room, the " + room.getMonster().getType() + " sees you");
 
-        while (gameState && knight.isAlive()) {
+        while (gameState) {
             System.out.println("What do you do: ");
             System.out.println("1. Run away");
             System.out.println("2. Fight ");
@@ -106,6 +107,7 @@ public class Runner {
                     if (!room.getMonster().isAlive()) {
                         endgame = " The brave adventurers defeated " + room.getMonster().getType()
                                 + " and found the treasure of " + room.getTreasure() + " shmeckles! ";
+                        totalTreasure += room.getTreasure();
                         gameState = false;
                     }
                     if (!room.getMonster().isAlive()) {
