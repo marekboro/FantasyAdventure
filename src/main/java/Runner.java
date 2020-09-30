@@ -1,8 +1,13 @@
+import adventurers.Adventurer;
 import adventurers.Knight;
 
+import adventurers.Wizard;
 import creatures.Monster;
 import sun.tools.jstat.Scale;
+import toolsandweapons.Spell;
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 import static java.lang.Integer.parseInt;
@@ -11,48 +16,102 @@ import static java.lang.Integer.parseInt;
 public class Runner {
 
     public static void main(String[] args) {
+
+        Generator generator = new Generator();
+        ArrayList<Adventurer> party = new ArrayList<Adventurer>();
+
+
         Knight knight = new Knight(30,"Sir Squiggly");
-        Monster ogre = new Monster("Ogre",50,4);
-        int treasure = 100;
-        Room room = new Room(knight,ogre,treasure);
+        Wizard wizard = new Wizard(20,"Rincewind");
+        Spell fireball = new Spell("Fireball", 10);
+        Spell iceShard = new Spell("ice shard", 11);
+
+        wizard.addSpellToBook(fireball);
+        wizard.addSpellToBook(iceShard);
+
+        party.add(knight);
+        party.add(wizard);
+
+        Room room =generator.getRandomRoom();
+        room.setAdventurers(party);
+
+//        Monster monster = new Monster("Ogre",50,4);
+//        int treasure = 100;
+//        Room room = new Room(monster,treasure);
         Scanner scanner = new Scanner(System.in);
-        boolean gamestate = true;
+        boolean gameState = true;
         String endgame = "";
 
 
 
+        Knight player1 = (Knight) room.getAdventurers().get(0);
+        Wizard player2 = (Wizard) room.getAdventurers().get(1);
 
         System.out.println("Welcome to the game");
         System.out.println("- - - - - - - - - - -" );
-        System.out.println(knight.getName() + " enters the room, the "+ ogre.getType() + " sees " + knight.getName());
+        System.out.println(player1.getName() + " and "+ player2.getName()
+                + " enters the room, the "+ room.getMonster().getType() + " sees you");
 
-        while (gamestate && knight.isAlive()) {
+        while (gameState && knight.isAlive()) {
             System.out.println("What do you do: ");
             System.out.println("1. Run away");
             System.out.println("2. Fight ");
             String input = scanner.next();
 
             if (parseInt(input) == 1) {
-                gamestate = false;
+                gameState = false;
                 endgame = "You ran for your life";
             }
 
             if (parseInt(input) == 2) {
-                if(ogre.isAlive()){
-                    System.out.println("1. Attack for " + knight.getWeapon().getBaseDamage()+ " damage");
+                if(room.getMonster().isAlive()){
+                    System.out.println("- - - - ");
+                    System.out.println(player1.getName() + " HP: " + player1.getHp());
+                    System.out.println(player2.getName() + " HP: " + player2.getHp());
+                    System.out.println(room.getMonster().getType() + " HP: " + room.getMonster().getHp() );
+                    System.out.println("- - - - ");
+
+                    System.out.println(player1.getName() + " to move: ");
+                    System.out.println("1. Attack for " +  player1.getWeapon().getBaseDamage()+ " damage");
                     System.out.println("2. Pray - Increases damage and small heal");
-                    String choice = scanner.next();
-                    if (parseInt(choice) == 1){
-                        knight.attack(ogre);
+                    String inputPlayer1 = scanner.next();
+
+                    System.out.println(player2.getName() + " to move: ");
+                    System.out.println("1. Cast Fireball for " + player2.getSpellBook().get(0).getBaseDamage());
+                    System.out.println("2. Cast ice Shard for " + player2.getSpellBook().get(1).getBaseDamage());
+                    String inputPlayer2 = scanner.next();
+
+                    if (parseInt(inputPlayer1) == 1){
+                        player1.attack(room.getMonster());
+                        System.out.println(room.getMonster().getType()+ " was hit for "+ player1.getWeapon().getBaseDamage());
                     }
-                    if (parseInt(choice) == 2){
-                        knight.pray();
+                    if (parseInt(inputPlayer1) == 2){
+                        player1.pray();
+
                     }
-                    ogre.attack(knight);
+
+                    if (parseInt(inputPlayer2) == 1){
+                        player2.selectSpell(0);
+                        player2.castSpell(room.getMonster());
+                        System.out.println(room.getMonster().getType()+ " was hit for "+ player2.getSelectedSpell().getBaseDamage());
+                    }
+                    if (parseInt(inputPlayer2) == 2){
+                        player2.selectSpell(1);
+                        player2.castSpell(room.getMonster());
+                        System.out.println(room.getMonster().getType()+ " was hit for "+ player2.getSelectedSpell().getBaseDamage());
+                    }
+
+                    System.out.println(room.getMonster().getType() + "'s turn to move, ");
+                    room.getMonster().attack(player1);
+                    System.out.println(room.getMonster().getType() + " attacked" + player1.getName() + "for " +room.getMonster().getCurrentDamage() + " damage");
+                    room.getMonster().attack(player2);
+                    System.out.println(room.getMonster().getType() + " attacked" + player2.getName() + "for " +room.getMonster().getCurrentDamage() + " damage");
+
                 }
 
 
             }
+
         }
 
 

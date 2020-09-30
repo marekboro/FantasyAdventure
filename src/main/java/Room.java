@@ -2,25 +2,26 @@ import adventurers.Adventurer;
 import creatures.Monster;
 
 import java.security.Principal;
+import java.util.ArrayList;
 
 public class Room {
 
-    private Adventurer adventurer;
+    private ArrayList<Adventurer> adventurers;
     private Monster monster;
     int treasure;
 
-    public Room(Adventurer adventurer, Monster monster, int treasure) {
-        this.adventurer = adventurer;
+    public Room(Monster monster, int treasure) {
+        this.adventurers = new ArrayList<Adventurer>();
         this.monster = monster;
         this.treasure = treasure;
     }
 
-    public Adventurer getAdventurer() {
-        return adventurer;
+    public ArrayList<Adventurer> getAdventurers() {
+        return adventurers;
     }
 
-    public void setAdventurer(Adventurer adventurer) {
-        this.adventurer = adventurer;
+    public void setAdventurers(ArrayList<Adventurer> adventurers) {
+        this.adventurers = adventurers;
     }
 
     public Monster getMonster() {

@@ -40,7 +40,10 @@ public class Knight extends Adventurer implements IAttack{
     }
 
     public void pray(){
-        this.weapon.setBaseDamage(weapon.getBaseDamage()+2);
-        heal(4);
+        int healAmount = 4;
+        int damageBonus = 2;
+        this.weapon.setBaseDamage(weapon.getBaseDamage()+damageBonus);
+        heal(healAmount);
+        System.out.println(this.getName() + " healed for " + healAmount + ", new weapon damage: " + getWeapon().getBaseDamage());
     }
 }

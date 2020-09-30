@@ -24,8 +24,8 @@ public class Warlock extends Adventurer implements ICast {
         this.selectedSpell = spellBook.get(index);
     }
 
-    public void castSpell(Spell spell, ITakeDamage target){
-        target.takeDmg(spell.getBaseDamage());
+    public void castSpell( ITakeDamage target){
+        target.takeDmg(selectedSpell.getBaseDamage());
     };
 
     public void changeBest(MythicalBest best){

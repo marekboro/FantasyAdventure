@@ -9,7 +9,7 @@ public class Barbarian extends Adventurer implements IAttack{
 
     public Barbarian(int hp, String name) {
         super(hp, name);
-        this.weapon = new Weapon("Polearm",15);
+        this.weapon = new Weapon("Polearm1",15);
     }
 
     public void takeDmg(int amount){

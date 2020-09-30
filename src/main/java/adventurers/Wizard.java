@@ -23,8 +23,8 @@ public class Wizard extends Adventurer implements ICast {
         this.selectedSpell = spellBook.get(index);
     }
 
-    public void castSpell(Spell spell, ITakeDamage target){
-        target.takeDmg(spell.getBaseDamage());
+    public void castSpell(ITakeDamage target){
+        target.takeDmg(selectedSpell.getBaseDamage());
     };
 
     public void changeBest(MythicalBest best){
@@ -35,4 +35,11 @@ public class Wizard extends Adventurer implements ICast {
         spellBook.add(spell);
     }
 
+    public Spell getSelectedSpell() {
+        return selectedSpell;
+    }
+
+    public ArrayList<Spell> getSpellBook() {
+        return spellBook;
+    }
 }
